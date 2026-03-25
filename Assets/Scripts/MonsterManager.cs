@@ -18,12 +18,14 @@ public class MonsterManager : MonoBehaviour
 
     private void Update()
     {
-        nowTime += nowTime + Time.deltaTime;
+        nowTime = nowTime + Time.deltaTime;
 
         if(nowTime > createTime)
         {
             GameObject monster = Instantiate(prefabMonster);
             monster.transform.position = transform.position;
+
+            createTime = Random.Range(minTime, maxTime);
             nowTime = 0; // 누적 시간 초기화
         }
     }

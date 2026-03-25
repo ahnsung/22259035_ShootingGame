@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject target;
+
+    public float spd = 1.0f;
+    Vector3 direct = Vector3.down;
+
+    private void Start()
     {
-        
+        int rndNum = Random.Range(0, 10);
+
+        if(rndNum % 3 == 0)
+        {
+
+            direct = target.transform.position - transform.position;
+            direct.Normalize();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        transform.position = transform.position + direct * spd * Time.deltaTime;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(collision.gameObject);
+
+        Destroy(gameObject);
     }
 }

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Shooting2026.unity
+    guid: 6c8a16d89d3e2ac47a1a0ffbd2c79029
   m_configObjects: {}
