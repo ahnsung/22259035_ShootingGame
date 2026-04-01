@@ -6,9 +6,10 @@ public class Monster : MonoBehaviour
 {
     public GameObject target;
 
-    public float spd = 1.0f;
+    public float spd = 3.0f;
     Vector3 direct = Vector3.down;
 
+    public GameObject prefabsExplosion;
     private void Start()
     {
         int rndNum = Random.Range(0, 10);
@@ -28,6 +29,10 @@ public class Monster : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        GameObject explisionObj = Instantiate(prefabsExplosion);
+        explisionObj.transform.position = transform.position;
+
+
         Destroy(collision.gameObject);
 
         Destroy(gameObject);
