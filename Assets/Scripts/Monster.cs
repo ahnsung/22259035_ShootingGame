@@ -6,10 +6,11 @@ public class Monster : MonoBehaviour
 {
     public GameObject target;
 
-    public float spd = 3.0f;
+    public float spd = 5.0f;
     Vector3 direct = Vector3.down;
 
     public GameObject prefabsExplosion;
+   
     private void Start()
     {
         int rndNum = Random.Range(0, 10);
