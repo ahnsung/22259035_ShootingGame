@@ -8,7 +8,7 @@ public class MonsterManager : MonoBehaviour
 
     float nowTime;
     float minTime = 1f;
-    float maxTime = 5f;
+    float maxTime = 2f;
     public float createTime = 1f;
 
     private void Start()

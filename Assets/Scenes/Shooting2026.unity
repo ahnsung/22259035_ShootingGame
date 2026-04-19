@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &171005547
 RectTransform:
   m_ObjectHideFlags: 0
@@ -256,6 +256,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171005546}
   m_CullTransparentMesh: 1
+--- !u!1 &289425062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 289425065}
+  - component: {fileID: 289425064}
+  - component: {fileID: 289425063}
+  m_Layer: 0
+  m_Name: boomManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &289425063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289425062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73790872be53ca4b93015133551f309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spd: 5
+  target: {fileID: 0}
+  prefabsExplosion: {fileID: 0}
+--- !u!114 &289425064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289425062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16b64ada6b2ca94181efa16e28320a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boomCountUI: {fileID: 0}
+  boomCnt: 3
+--- !u!4 &289425065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289425062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.56800044, y: 0.1815095, z: 1.7849436}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294289678
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,15 +956,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4154665ea6356094697af3c83bc6d4d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.36
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4154665ea6356094697af3c83bc6d4d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.43
+      value: -1.44
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4154665ea6356094697af3c83bc6d4d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.04
+      value: -5.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4154665ea6356094697af3c83bc6d4d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -938,7 +1000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4154665ea6356094697af3c83bc6d4d9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1403,6 +1465,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4582576714458234136, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582576714458234136, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 9152188868749678114, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1548,3 +1618,4 @@ SceneRoots:
   - {fileID: 732113259}
   - {fileID: 830923905}
   - {fileID: 1039876673}
+  - {fileID: 289425065}
