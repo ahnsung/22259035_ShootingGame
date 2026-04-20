@@ -1,63 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+
 public class Monster : MonoBehaviour
 {
     public float spd = 5.0f;
     public GameObject target;
     public GameObject prefabsExplosion;
 
-    Vector3 direct = Vector3.down;
-    public TextMeshProUGUI boomCountUI;
-    public int boomCnt = 3;
+    private Vector3 direct = Vector3.down;
+
     private void Start()
     {
+        if (target == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+                target = playerObj;
+        }
+
         int rndNum = Random.Range(0, 10);
 
-        if (rndNum % 3 == 0)
+        // 가끔 플레이어를 향해 내려오게 하고,
+        // 아니면 그냥 아래로 내려오게 해서 기존 느낌 유지
+        if (rndNum % 3 == 0 && target != null)
         {
-
             direct = target.transform.position - transform.position;
+            direct.z = 0f;
             direct.Normalize();
         }
-}
+    }
 
     private void Update()
     {
-        transform.position = transform.position + direct * spd * Time.deltaTime;
+        transform.position += direct * spd * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.CompareTag("Bullet"))
         {
-            GameObject gameManager = GameObject.Find("GameManager");
-            ScoreManager scoreManager = gameManager.GetComponent<ScoreManager>();
+            ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+            if (scoreManager != null)
+                scoreManager.AddScore(1);
 
-            scoreManager.nowScore++;
-            scoreManager.nowScoreUI.text = "Now Score : " + scoreManager.nowScore;
-
-            if (scoreManager.nowScore > scoreManager.bestScore)
+            if (prefabsExplosion != null)
             {
-                scoreManager.bestScore = scoreManager.nowScore;
-                scoreManager.bestScoreUI.text = "Best Score : " + scoreManager.bestScore;
-
-                PlayerPrefs.SetInt("BestScore", scoreManager.bestScore);
+                GameObject explosionObj = Instantiate(prefabsExplosion);
+                explosionObj.transform.position = transform.position;
             }
 
-            GameObject explisionObj = Instantiate(prefabsExplosion);
-            explisionObj.transform.position = transform.position;
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag == "Player")
+        else if (collision.CompareTag("Player"))
         {
-            GameObject explisionObj = Instantiate(prefabsExplosion);
-            explisionObj.transform.position = transform.position;
+            if (prefabsExplosion != null)
+            {
+                GameObject explosionObj = Instantiate(prefabsExplosion);
+                explosionObj.transform.position = transform.position;
+            }
+
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
     }
 }
-
