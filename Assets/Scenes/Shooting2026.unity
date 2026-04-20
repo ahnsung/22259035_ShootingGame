@@ -275,37 +275,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boomCountUI: {fileID: 171005548}
   boomCnt: 3
---- !u!1 &234868613
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 234868614}
-  m_Layer: 0
-  m_Name: BossSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &234868614
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234868613}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 3.74, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
 --- !u!1 &289425062
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +851,7 @@ Transform:
   m_GameObject: {fileID: 832700477}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 8.66, z: 0}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1429,10 +1398,18 @@ PrefabInstance:
     - target: {fileID: 2262696630542424313, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
       propertyPath: bossSpawnPoint
       value: 
-      objectReference: {fileID: 234868614}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262696630542424313, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
+      propertyPath: chargeMonsterChance
+      value: 0.315
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262696630542424313, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
+      propertyPath: prefabChargeMonster
+      value: 
+      objectReference: {fileID: 6784427423925792920, guid: e3dd00ba47c68054cbe05659a5678ba3, type: 3}
     - target: {fileID: 2463097892551962011, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.7
+      value: -21.2
       objectReference: {fileID: 0}
     - target: {fileID: 2463097892551962011, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1544,7 +1521,7 @@ PrefabInstance:
       objectReference: {fileID: -876546973899608171, guid: a10ea97d1e7447a42a14b05fff673229, type: 3}
     - target: {fileID: 7937783293550448458, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
       propertyPath: delay
-      value: 3
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 9152188868749678114, guid: 2ff04b8c8fd59d94bb7a270a5ae0b2b0, type: 3}
       propertyPath: m_Mesh
@@ -1674,4 +1651,3 @@ SceneRoots:
   - {fileID: 830923905}
   - {fileID: 1039876673}
   - {fileID: 289425065}
-  - {fileID: 234868614}
