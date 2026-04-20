@@ -13,28 +13,21 @@ public class ScoreManager : MonoBehaviour
     {
         bestScore = PlayerPrefs.GetInt("BestScore", 0);
 
-        if (nowScoreUI != null)
-            nowScoreUI.text = "Now Score : " + nowScore;
-
-        if (bestScoreUI != null)
-            bestScoreUI.text = "Best Score : " + bestScore;
+        nowScoreUI.text = "Now Score : " + nowScore;
+        bestScoreUI.text = "Best Score : " + bestScore;
     }
 
     public void AddScore(int amount)
     {
         nowScore += amount;
 
-        if (nowScoreUI != null)
-            nowScoreUI.text = "Now Score : " + nowScore;
-
         if (nowScore > bestScore)
         {
             bestScore = nowScore;
-
-            if (bestScoreUI != null)
-                bestScoreUI.text = "Best Score : " + bestScore;
-
             PlayerPrefs.SetInt("BestScore", bestScore);
+
+            nowScoreUI.text = "Now Score : " + nowScore;
+            bestScoreUI.text = "Best Score : " + bestScore;
         }
     }
 }

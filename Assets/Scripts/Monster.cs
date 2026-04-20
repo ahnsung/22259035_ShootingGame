@@ -19,8 +19,6 @@ public class Monster : MonoBehaviour
 
         int rndNum = Random.Range(0, 10);
 
-        // 가끔 플레이어를 향해 내려오게 하고,
-        // 아니면 그냥 아래로 내려오게 해서 기존 느낌 유지
         if (rndNum % 3 == 0 && target != null)
         {
             direct = target.transform.position - transform.position;

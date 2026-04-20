@@ -34,7 +34,6 @@ public class BossBullet : MonoBehaviour
         }
         else if (collision.CompareTag("Bullet"))
         {
-            // 플레이어 총알이랑 부딪히면 같이 삭제되게 하고 싶으면 유지
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

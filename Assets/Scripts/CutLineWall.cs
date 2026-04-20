@@ -6,6 +6,10 @@ public class CutLineWall : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.CompareTag("Boss"))
+        {
+            return;
+        }
         Destroy(other.gameObject);
     }
 }

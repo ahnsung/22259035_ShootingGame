@@ -6,18 +6,20 @@ public class MonsterManager : MonoBehaviour
     public GameObject prefabMonster;
     public Transform player;
 
+    public GameObject lookTarget;
+
     public float minTime = 1f;
     public float maxTime = 2f;
 
     private float nowTime;
     private float createTime;
 
-    [Header("Boss")]
+    [Header("Boss Spawn")]
     public GameObject bossPrefab;
     public Transform bossSpawnPoint;
 
-    public int firstBossScore = 20;     // 첫 보스 등장 점수
-    public int bossScoreInterval = 20;  // 다음 보스 등장 간격
+    public int firstBossScore = 20;
+    public int bossScoreInterval = 20;
 
     private int nextBossScore;
     private bool bossAlive = false;
@@ -36,7 +38,13 @@ public class MonsterManager : MonoBehaviour
         if (scoreManager == null)
             scoreManager = FindObjectOfType<ScoreManager>();
 
-        // 보스가 없고, 점수가 기준 이상이면 보스 소환
+        // V key debug boss spawn
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            DebugSpawnBoss();
+        }
+
+        // normal boss spawn by score
         if (!bossAlive && scoreManager != null && scoreManager.nowScore >= nextBossScore)
         {
             SpawnBoss();
@@ -44,17 +52,17 @@ public class MonsterManager : MonoBehaviour
             return;
         }
 
-        // 보스 살아있는 동안 일반 몬스터 생성 금지
+        // stop spawning when boss alive
         if (bossAlive)
             return;
 
         nowTime += Time.deltaTime;
 
-        if (nowTime > createTime)
+        if (nowTime >= createTime)
         {
             SpawnMonster();
-            createTime = Random.Range(minTime, maxTime);
             nowTime = 0f;
+            createTime = Random.Range(minTime, maxTime);
         }
     }
 
@@ -77,11 +85,11 @@ public class MonsterManager : MonoBehaviour
 
         bossAlive = true;
 
-        // 보스 등장 직전에 필드 일반 몬스터 정리
+        // remove all normal monsters
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-        foreach (GameObject m in monsters)
+        foreach (GameObject monster in monsters)
         {
-            Destroy(m);
+            Destroy(monster);
         }
 
         Vector3 spawnPos = transform.position;
@@ -89,14 +97,16 @@ public class MonsterManager : MonoBehaviour
             spawnPos = bossSpawnPoint.position;
 
         GameObject bossObj = Instantiate(bossPrefab, spawnPos, Quaternion.identity);
+        bossObj.transform.LookAt(lookTarget.transform.position);
+        Debug.Log("1");
 
-        BossMonster bossScript = bossObj.GetComponent<BossMonster>();
-        if (bossScript != null)
+        BossMonster boss = bossObj.GetComponent<BossMonster>();
+        if (boss != null)
         {
-            bossScript.manager = this;
+            boss.manager = this;
 
             if (player != null)
-                bossScript.target = player;
+                boss.target = player;
         }
 
         nowTime = 0f;
@@ -107,5 +117,13 @@ public class MonsterManager : MonoBehaviour
         bossAlive = false;
         nowTime = 0f;
         createTime = Random.Range(minTime, maxTime);
+    }
+
+    public void DebugSpawnBoss()
+    {
+        if (bossAlive)
+            return;
+
+        SpawnBoss();
     }
 }
