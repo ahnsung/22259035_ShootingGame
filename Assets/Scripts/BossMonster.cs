@@ -15,8 +15,10 @@ public class BossMonster : MonoBehaviour
 
     [Header("Fixed Position")]
     public float fixedY = 4.2f;
-    public float minX = -7f;
-    public float maxX = 7f;
+    public float fixedX = 0f;
+
+    [Header("Rotation")]
+    public Vector3 fixedRotation = new Vector3(0f, 0f, 0f);
 
     [Header("Bullet")]
     public GameObject bossBulletPrefab;
@@ -51,13 +53,9 @@ public class BossMonster : MonoBehaviour
                 target = playerObj.transform;
         }
 
-        Vector3 pos = transform.position;
-        pos.y = fixedY;
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.z = 0f;
-
-        transform.position = pos;
-        idlePosition = pos;
+        idlePosition = new Vector3(fixedX, fixedY, 0f);
+        transform.position = idlePosition;
+        FixDirectionDown();
     }
 
     private void Update()
@@ -77,8 +75,8 @@ public class BossMonster : MonoBehaviour
         if (isPatternRunning)
             return;
 
-        // 평소에는 제자리 고정
         transform.position = idlePosition;
+        FixDirectionDown();
 
         HandleFire();
 
@@ -89,9 +87,26 @@ public class BossMonster : MonoBehaviour
         }
     }
 
+    private void FixDirectionDown()
+    {
+        transform.rotation = Quaternion.Euler(fixedRotation);
+    }
+
     private void HandleFire()
     {
-        if (bossBulletPrefab == null || firePoint == null || target == null)
+        if (bossBulletPrefab == null)
+        {
+            Debug.LogWarning("Boss bullet prefab is not assigned.");
+            return;
+        }
+
+        if (firePoint == null)
+        {
+            Debug.LogWarning("FirePoint is not assigned.");
+            return;
+        }
+
+        if (target == null)
             return;
 
         bulletTimer += Time.deltaTime;
@@ -109,6 +124,10 @@ public class BossMonster : MonoBehaviour
                 dir.z = 0f;
                 bullet.Init(dir, bulletSpeed, prefabsExplosion);
             }
+            else
+            {
+                Debug.LogWarning("BossBullet component is missing on boss bullet prefab.");
+            }
         }
     }
 
@@ -118,11 +137,9 @@ public class BossMonster : MonoBehaviour
         dashTimer = 0f;
         bulletTimer = 0f;
 
-        // 돌진 직전 플레이어 위치를 저장
         Vector3 savedPlayerPos = target.position;
         savedPlayerPos.z = 0f;
 
-        // 1. 뒤로 빠지는 예고 모션
         Vector3 retreatDir = (transform.position - savedPlayerPos).normalized;
         retreatDir.z = 0f;
 
@@ -131,8 +148,6 @@ public class BossMonster : MonoBehaviour
 
         Vector3 retreatTarget = transform.position + retreatDir * retreatDistance;
         retreatTarget.z = 0f;
-        retreatTarget.x = Mathf.Clamp(retreatTarget.x, minX - 1f, maxX + 1f);
-        retreatTarget.y = Mathf.Clamp(retreatTarget.y, fixedY, fixedY + 1.8f);
 
         while (Vector3.Distance(transform.position, retreatTarget) > 0.03f)
         {
@@ -141,10 +156,11 @@ public class BossMonster : MonoBehaviour
                 retreatTarget,
                 retreatSpeed * Time.deltaTime
             );
+
+            FixDirectionDown();
             yield return null;
         }
 
-        // 2. 저장한 플레이어 위치를 향해 직선 돌진
         Vector3 chargeDir = (savedPlayerPos - transform.position).normalized;
         chargeDir.z = 0f;
 
@@ -156,21 +172,14 @@ public class BossMonster : MonoBehaviour
         while (elapsed < chargeTime)
         {
             transform.position += chargeDir * chargeSpeed * Time.deltaTime;
-
-            Vector3 pos = transform.position;
-            pos.z = 0f;
-            pos.x = Mathf.Clamp(pos.x, minX - 2f, maxX + 2f);
-            pos.y = Mathf.Clamp(pos.y, -5f, fixedY + 2f);
-            transform.position = pos;
+            FixDirectionDown();
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        // 3. 후딜
         yield return new WaitForSeconds(postDashDelay);
 
-        // 4. 원래 고정 자리로 복귀
         while (Vector3.Distance(transform.position, idlePosition) > 0.03f)
         {
             transform.position = Vector3.MoveTowards(
@@ -178,10 +187,13 @@ public class BossMonster : MonoBehaviour
                 idlePosition,
                 returnSpeed * Time.deltaTime
             );
+
+            FixDirectionDown();
             yield return null;
         }
 
         transform.position = idlePosition;
+        FixDirectionDown();
         isPatternRunning = false;
     }
 

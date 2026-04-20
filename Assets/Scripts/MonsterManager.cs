@@ -6,8 +6,6 @@ public class MonsterManager : MonoBehaviour
     public GameObject prefabMonster;
     public Transform player;
 
-    public GameObject lookTarget;
-
     public float minTime = 1f;
     public float maxTime = 2f;
 
@@ -38,13 +36,11 @@ public class MonsterManager : MonoBehaviour
         if (scoreManager == null)
             scoreManager = FindObjectOfType<ScoreManager>();
 
-        // V key debug boss spawn
         if (Input.GetKeyDown(KeyCode.V))
         {
             DebugSpawnBoss();
         }
 
-        // normal boss spawn by score
         if (!bossAlive && scoreManager != null && scoreManager.nowScore >= nextBossScore)
         {
             SpawnBoss();
@@ -52,7 +48,6 @@ public class MonsterManager : MonoBehaviour
             return;
         }
 
-        // stop spawning when boss alive
         if (bossAlive)
             return;
 
@@ -81,11 +76,13 @@ public class MonsterManager : MonoBehaviour
     private void SpawnBoss()
     {
         if (bossPrefab == null)
+        {
+            Debug.LogWarning("Boss Prefab is not assigned.");
             return;
+        }
 
         bossAlive = true;
 
-        // remove all normal monsters
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
         foreach (GameObject monster in monsters)
         {
@@ -97,8 +94,6 @@ public class MonsterManager : MonoBehaviour
             spawnPos = bossSpawnPoint.position;
 
         GameObject bossObj = Instantiate(bossPrefab, spawnPos, Quaternion.identity);
-        bossObj.transform.LookAt(lookTarget.transform.position);
-        Debug.Log("1");
 
         BossMonster boss = bossObj.GetComponent<BossMonster>();
         if (boss != null)
@@ -107,6 +102,10 @@ public class MonsterManager : MonoBehaviour
 
             if (player != null)
                 boss.target = player;
+        }
+        else
+        {
+            Debug.LogWarning("BossMonster component is missing on boss prefab.");
         }
 
         nowTime = 0f;
