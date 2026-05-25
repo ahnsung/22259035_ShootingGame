@@ -45,6 +45,13 @@ public class Monster : MonoBehaviour
                 GameObject explosionObj = Instantiate(prefabsExplosion);
                 explosionObj.transform.position = transform.position;
             }
+            MonsterDropper dropper = GetComponent<MonsterDropper>();
+            if((dropper != null))
+            {
+                Debug.Log("d");
+                dropper.Drop();
+            }
+
 
             Destroy(collision.gameObject);
             Destroy(gameObject);

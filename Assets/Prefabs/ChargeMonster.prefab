@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 5185695416960629130}
   - component: {fileID: 7462842529568551358}
   - component: {fileID: -543590692108009604}
+  - component: {fileID: -8435074539768647697}
   m_Layer: 0
   m_Name: ChargeMonster
   m_TagString: Monster
@@ -353,3 +354,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.443175, y: 5.8369265, z: 3.879245}
   m_Center: {x: 0.05299591, y: 1.1720083, z: 0.07636462}
+--- !u!114 &-8435074539768647697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6784427423925792920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a27e2054c8e99004ba67df4713212ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPrefab: {fileID: 3508543932326935325, guid: ff1a3a04c4c133c4489c33cd1faf087a, type: 3}
+  dropTables:
+  - itemData: {fileID: 11400000, guid: f48c285bb1e67bc4594c83b70b75dacc, type: 2}
+    dropRate: 1
+    minCount: 1
+    maxCount: 3
